@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบลงทะเบียนและกิจกรรม</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            padding: 50px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="date"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            border-color: #28a745;
+            outline: none;
+        }
+        input[type="submit"] {
+            background: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background: #218838;
+        }
+        .event-list {
+            margin-top: 20px;
+        }
+        .event-item {
+            padding: 15px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            background: #f9f9f9;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .hidden {
+            display: none;
+        }
+        .form-icon {
+            margin-right: 10px;
+        }
+        .form-group {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="registration-section">
+        <h2><i class="fas fa-user-plus"></i> ลงทะเบียนผู้ใช้</h2>
+        <form id="registration-form">
+            <div class="form-group">
+                <label for="username"><i class="fas fa-user"></i> ชื่อผู้ใช้:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password"><i class="fas fa-lock"></i> รหัสผ่าน:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="email"><i class="fas fa-envelope"></i> อีเมล:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <input type="submit" value="ลงทะเบียน">
+        </form>
+    </div>
+
+    <div id="events-section" class="hidden">
+        <h2><i class="fas fa-calendar-plus"></i> สร้างกิจกรรม</h2>
+        <form id="event-form">
+            <div class="form-group">
+                <label for="event-name"><i class="fas fa-calendar-alt"></i> ชื่อกิจกรรม:</label>
+                <input type="text" id="event-name" name="event-name" required>
+            </div>
+            <div class="form-group">
+                <label for="event-date"><i class="fas fa-calendar-day"></i> วันที่จัดกิจกรรม:</label>
+                <input type="date" id="event-date" name="event-date" required>
+            </div>
+            <div class="form-group">
+                <label for="max-participants"><i class="fas fa-users"></i> จำนวนที่รับสมัคร:</label>
+                <input type="number" id="max-participants" name="max-participants" required>
+            </div>
+            <div class="form-group">
+                <label for="registration-start"><i class="fas fa-clock"></i> ช่วงเวลารับสมัคร (เริ่ม):</label>
+                <input type="date" id="registration-start" name="registration-start" required>
+            </div>
+            <div class="form-group">
+                <label for="registration-end"><i class="fas fa-clock"></i> ช่วงเวลารับสมัคร (สิ้นสุด):</label>
+                <input type="date" id="registration-end" name="registration-end" required>
+            </div>
+            <div class="form-group">
+                <label for="organizing-body"><i class="fas fa-building"></i> หน่วยงานที่จัด:</label>
+                <input type="text" id="organizing-body" name="organizing-body" required>
+            </div>
+            <div class="form-group">
+                <label for="draft-published"><i class="fas fa-file"></i> สถานะกิจกรรม:</label>
+                <select id="draft-published" name="draft-published" required>
+                    <option value="draft">แบบร่าง</option>
+                    <option value="published">เผยแพร่สาธารณะ</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="approval-type"><i class="fas fa-check-circle"></i> การอนุมัติ:</label>
+                <select id="approval-type" name="approval-type" required>
+                    <option value="immediate">อนุมัติทันที</option>
+                    <option value="manual">เลือกอนุมัติ</option>
+                </select>
+            </div>
+            <input type="submit" value="สร้างกิจกรรม">
+        </form>
+
+        <div class="event-list">
+            <h2><i class="fas fa-list"></i> กิจกรรมที่สร้างขึ้น</h2>
+            <div id="event-container"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('registration-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const email = document.getElementById('email').value;
+
+        alert(`ลงทะเบียนสำเร็จ: ${username}`);
+        document.getElementById('registration-section').classList.add('hidden');
+        document.getElementById('events-section').classList.remove('hidden');
+    });
+
+    document.getElementById('event-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const eventName = document.getElementById('event-name').value;
+        const eventDate = document.getElementById('event-date').value;
+        const maxParticipants = document.getElementById('max-participants').value;
+        const organizingBody = document.getElementById('organizing-body').value;
+
+        const eventContainer = document.getElementById('event-container');
+        const newEvent = document.createElement('div');
+        newEvent.classList.add('event-item');
+        newEvent.innerHTML = `
+            <strong>ชื่อกิจกรรม:</strong> ${eventName}<br>
+            <strong>วันที่จัด:</strong> ${eventDate}<br>
+            <strong>หน่วยงานที่จัด:</strong> ${organizingBody}<br>
+            <strong>จำนวนที่รับสมัคร:</strong> ${maxParticipants} คน<br>
+        `;
+        eventContainer.appendChild(newEvent);
+        document.getElementById('event-form').reset();
+    });
+</script>
+
+</body>
+</html>
